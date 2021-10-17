@@ -2,13 +2,17 @@ bits 32
 global start
 extern kernel_main
 
+MBOOT_HEADER_MAGIC EQU 0x1BADB002
+MBOOT_HEADER_FLAGS EQU 0x00000001
+MBOOT_CHECKSUM EQU - (MBOOT_HEADER_MAGIC+MBOOT_HEADER_FLAGS)
+
+section .mboot
+    align 4
+    dd MBOOT_HEADER_MAGIC
+    dd MBOOT_HEADER_FLAGS
+    dd MBOOT_CHECKSUM
 
 section .txt
-        align 4
-        dd 0x1BADB002            ;magic
-        dd 0x00                  ;flags
-        dd - (0x1BADB002 + 0x00) ;checksum. m+f+c should be zero
-
 start:
     cli                 ;turned off interrupts
     mov esp, stack_space ;set stack pointer
