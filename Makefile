@@ -5,22 +5,34 @@ ASM ?= nasm
 OUTPUT_DIR = ./build
 IDIR=./include
 
-CC_FLAGS := -m32 -c -Wall -Werror -isystem $(IDIR) -I include 
+CC_FLAGS := -nostdlib -nostdinc -m32 -fno-builtin -fno-stack-protector -c -Wall -Werror -I include
 LD_FLAGS := -m elf_i386 -T
 ASM_FLAGS := -f elf32
 
+SOURCES_C := $(shell find src -name "*.c")
+SOURCES_ASM := $(shell find src -name "*.asm")
 
-all: kernel
+OBJECTS_C := $(SOURCES_C:.c=.o)
+OBJECTS_ASM := $(SOURCES_ASM:.asm=.o)
+EXECUTABLE := kernel
 
-kernel: kernel_asm kernel_c
-	$(LD) $(LD_FLAGS)  config/link.ld -o $(OUTPUT_DIR)/kernel $(OUTPUT_DIR)/kernel_asm.o $(OUTPUT_DIR)/kernel_c.o
 
-kernel_asm: src/kernel.asm
-	$(ASM) $(ASM_FLAGS) src/kernel.asm -o $(OUTPUT_DIR)/kernel_asm.o
+all: mkdir_build $(EXECUTABLE) $(SOURCES_C) $(SOURCES_ASM)
+	@make clean
 
-kernel_c: src/kernel_main.c
-	$(CC) $(CC_FLAGS) src/kernel_main.c -o $(OUTPUT_DIR)/kernel_c.o
+$(EXECUTABLE): $(OBJECTS_C) $(OBJECTS_ASM) 
+	$(LD) $(LD_FLAGS) config/link.ld  $(OBJECTS_C) $(OBJECTS_ASM) -o $(OUTPUT_DIR)/$(EXECUTABLE)
 
-.PHONY: clean
-cleam:
-	rm $(OUTPUT_DIR)/*
+%.o: %.c
+	$(CC) $(CC_FLAGS) -o $@ $<
+
+%.o: %.asm
+	$(ASM) $(ASM_FLAGS) -o $@ $<
+
+.PHONY: clean, mkdir_build
+
+clean:
+	rm $(shell find . -name "*.o")
+
+mkdir_build:
+	$(shell [ ! -d  $(OUTPUT_DIR) ] && mkdir $(OUTPUT_DIR))
