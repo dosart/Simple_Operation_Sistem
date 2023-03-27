@@ -12,8 +12,8 @@ void keyboard_handler() {
       goto end;
     }
 
-    const char *str = "keyboard_handler";
-    print_text("keyboard_handler");
+    char *str = "keyboard_handler";
+    print_text(str);
   }
 
 end:
