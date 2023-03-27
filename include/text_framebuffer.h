@@ -1,12 +1,10 @@
 #ifndef TEXT_FRAMEBUFFER_H
 #define TEXT_FRAMEBUFFER_H
 
-#include <common.h>
-
-/* Video memory begin address*/
 #define VIDEO_MEMORY 0xB8000
 
-/*    Text mode colors       */
+/*	Main colors		*/
+
 #define BLACK 0x0
 #define BLUE 0x1
 #define GREEN 0x2
@@ -28,14 +26,34 @@
 #define SCREEN_WIDTH 80
 #define SCREEN_HEIGHT 25
 
-u8int default_background_color = BLACK;
-u8int default_text_color = LIGHT_GRAY;
+#include "common.h"
 
-u16int *video_memory = (u16int *)VIDEO_MEMORY;
-u8int width = SCREEN_WIDTH;
-u8int height = SCREEN_HEIGHT;
+/* Move hardware cursor to reference screen position */
+void move_cursor(u8int x, u8int y);
 
-void clear();
-void print_str(const char *str, u8int background_color, u8int str_color);
+/*	Set colors	*/
+void set_bkground_color(u8int color);
+void set_text_color(u8int color);
+
+/* Clean screen */
+void clear(void);
+
+/* Print text string */
+void print_text(char *s);
+
+/* Print hexadecimal value on screen */
+void print_hex_value(u32int value);
+
+/* Print decimal value on screen */
+void print_dec_value(u32int value);
+
+/* Print byte */
+void print_byte(u8int value);
+
+/* Print debug message */
+void debug_msg(char *s, u32int value);
+
+/* Print memory dump */
+void print_dump(void *address, u32int size);
 
 #endif
