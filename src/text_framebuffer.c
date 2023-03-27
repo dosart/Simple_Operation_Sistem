@@ -1,10 +1,7 @@
-/*------------------------------------------------------------------------------
-//
-//	PhantomEx, working with text framebuffer
-//	(c) maisvendoo, 04.07.2013
-//
-//----------------------------------------------------------------------------*/
 #include "text_framebuffer.h"
+
+extern char asm_read_port(unsigned char port);
+extern void asm_write_port(unsigned int port, unsigned char data);
 
 /************************************************************************/
 /*	Global framebuffer variables					*/
@@ -41,12 +38,12 @@ void move_cursor(u8int x, u8int y) {
   u16int cur_pos = y * width + x;
 
   /* Send of high byte to VGA controller */
-  outb(0x3D4, 14);
-  outb(0x3D5, cur_pos >> 8);
+  asm_write_port(0x3D4, 14);
+  asm_write_port(0x3D5, cur_pos >> 8);
 
   /* Send of low byte to VGA controller */
-  outb(0x3D4, 15);
-  outb(0x3D5, cur_pos);
+  asm_write_port(0x3D4, 15);
+  asm_write_port(0x3D5, cur_pos);
 
   /* Update current cursor position */
   cur_x = x;
@@ -149,12 +146,6 @@ void clear(void) {
   int N = (width >> 2) * height;
 
   int i;
-
-  /*for (i = 0; i < width*height; i++)
-  {
-    video_memory[i] = blank;
-  }*/
-
   for (i = 0; i < N; i++) {
     wide_buf[i] = wide_blank;
   }
