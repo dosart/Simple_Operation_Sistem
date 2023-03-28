@@ -2,7 +2,7 @@
 #define DESCRIPTOR_TABLES_H
 
 #include "common.h"
-#include "pic.h"
+#include "interapts/pic.h"
 
 /*------------------------------------------------------------------------------
 //	Entry in Interrup Descriptor Table (IDT)

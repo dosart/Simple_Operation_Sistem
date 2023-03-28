@@ -1,4 +1,4 @@
-#include "interapt_handlers.h"
+#include "interapts/interapt_handlers.h"
 
 extern char asm_read_port(unsigned char port);
 extern void asm_write_port(unsigned int port, unsigned char data);

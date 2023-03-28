@@ -1,4 +1,4 @@
-#include "pic.h"
+#include "interapts/pic.h"
 
 extern unsigned char asm_read_port(unsigned char port);
 extern void asm_write_port(unsigned int port, unsigned char data);

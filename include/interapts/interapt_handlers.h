@@ -1,7 +1,7 @@
 #ifndef INTERAPT_HANDLERS_H
 #define INTERAPT_HANDLERS_H
 
-#include "text_framebuffer.h"
+#include "video/text_framebuffer.h"
 
 /*------------------------------------------------
 // Keyboard handler

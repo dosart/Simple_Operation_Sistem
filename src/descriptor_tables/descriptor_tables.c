@@ -1,5 +1,5 @@
-#include "descriptor_tables.h"
-#include "text_framebuffer.h"
+#include "descriptor_tables/descriptor_tables.h"
+#include "video/text_framebuffer.h"
 
 /*******************************************************************************
         IDT
