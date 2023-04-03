@@ -1,38 +1,28 @@
-CC ?= gcc
-LD ?= ld
-ASM ?= nasm
+SOURCES=src/entry_point.o src/kernel_main.o src/lib/string.o
 
-OUTPUT_DIR = ./build
-IDIR=./include
+CFLAGS=-Wall -Werror -fno-pie -nostdlib -nostdinc -fno-builtin -fno-stack-protector -m32 -g -I include
 
-CC_FLAGS := -nostdlib -nostdinc -m32 -fno-builtin -fno-stack-protector -c -Wall -Werror -I include
-LD_FLAGS := -m elf_i386 -T
-ASM_FLAGS := -f elf32
+LDFLAGS=-T config/link.ld -m elf_i386 
 
-SOURCES_C := $(shell find src -name "*.c")
-SOURCES_ASM := $(shell find src -name "*.asm")
+ASFLAGS=--32
 
-OBJECTS_C := $(SOURCES_C:.c=.o)
-OBJECTS_ASM := $(SOURCES_ASM:.asm=.o)
-EXECUTABLE := kernel
+OUTPUT_DIR = ./bin
 
+all: mkdir_build $(SOURCES) link clean
 
-all: mkdir_build $(EXECUTABLE) $(SOURCES_C) $(SOURCES_ASM)
-	@make clean
+mkdir_build:
+	$(shell [ ! -d  $(OUTPUT_DIR) ] && mkdir $(OUTPUT_DIR))
 
-$(EXECUTABLE): $(OBJECTS_C) $(OBJECTS_ASM) 
-	$(LD) $(LD_FLAGS) config/link.ld  $(OBJECTS_C) $(OBJECTS_ASM) -o $(OUTPUT_DIR)/$(EXECUTABLE)
-
-%.o: %.c
-	$(CC) $(CC_FLAGS) -o $@ $<
-
-%.o: %.asm
-	$(ASM) $(ASM_FLAGS) -o $@ $<
-
-.PHONY: clean, mkdir_build
+link:
+	ld $(LDFLAGS) -o $(OUTPUT_DIR)/kernel $(SOURCES)
 
 clean:
 	rm $(shell find . -name "*.o")
 
-mkdir_build:
-	$(shell [ ! -d  $(OUTPUT_DIR) ] && mkdir $(OUTPUT_DIR))
+clean_all:
+	@make clean
+	rm $(OUTPUT_DIR)/kernel
+
+run:
+	@make all && qemu-system-x86_64 -kernel $(OUTPUT_DIR)/kernel
+

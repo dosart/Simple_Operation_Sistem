@@ -1,10 +1,15 @@
-#include "descriptor_tables/descriptor_tables.h"
-#include "video/text_framebuffer.h"
+#include "lib/string.h"
 
-void kernel_main() {
-  char *text = "Hello world!\n";
+char *hello = "Hello world!";
+int screen_size = 80 * 25;
 
-  clear();
-  print_text(text);
-  init_descriptor_tables();
+void kernel_main(void* multiboot, void* kstack)
+{
+  char *video = (char*)0xB8000;
+    char buff[screen_size + 1];
+    video[screen_size] = '\0';
+
+    memset(buff, ' ', screen_size);
+    strext(video, buff, 0x7);
+    strext(video, hello, 0x7);
 }
