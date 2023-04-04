@@ -1,6 +1,6 @@
 /*!
 @file
-@defgroup string
+@defgroup stdstring
 @brief  Header file for string
 This file contains functions implementation from libs (string.h)
 */
@@ -21,11 +21,11 @@ This file contains functions implementation from libs (string.h)
  * @param n, Bytes count.
  * @returns Pointer to dest.
  */
-void *memcpy(void *dest, const void *src, size_t n);
+void* memcpy(void* dest, const void* src, size_t n);
 
 /**
  * @ingroup string
- * 
+ *
  * @brief Sets buffers to a specified character.
  *
  * @param buf Pointer to the object to fill.
@@ -34,7 +34,7 @@ void *memcpy(void *dest, const void *src, size_t n);
  *
  * @return Pointer to buf.
  */
-void *memset(void *buf, char ch, size_t count);
+void* memset(void* buf, char ch, size_t count);
 
 /**
  * @ingroup string
@@ -45,12 +45,12 @@ void *memset(void *buf, char ch, size_t count);
  * @param str2 Null-terminated string to compare.
  *
  * @return {The return value for each of these functions indicates the ordinal relation of str1, str2.
- * 
+ *
  * < 0 str1 is less than str2
  *   0 str1 is identical to str2
  * > 0 str1 is greater than str2}
  */
-int strcmp(const char *str1, const char *str2);
+int strcmp(const char* str1, const char* str2);
 
 /**
  * @ingroup string
@@ -62,7 +62,7 @@ int strcmp(const char *str1, const char *str2);
  *
  * @return destination is returned.
  */
-char *strcat(char *dest, const char *src);
+char* strcat(char* dest, const char* src);
 
 /**
  * @ingroup string
@@ -73,7 +73,7 @@ char *strcat(char *dest, const char *src);
  *
  * @return length of a string.
  */
-size_t strlen(const char *str);
+size_t strlen(const char* str);
 
 /**
  * @ingroup string
@@ -85,7 +85,7 @@ size_t strlen(const char *str);
  *
  * @return destination is returned.
  */
-char *strcpy(char *dest, const char *src);
+char* strcpy(char* dest, const char* src);
 
 /**
  * @ingroup string
@@ -99,7 +99,7 @@ char *strcpy(char *dest, const char *src);
  *
  * @return destination is returned.
  */
-char *strcpyn(char *dest, const char *src, size_t num);
+char* strcpyn(char* dest, const char* src, size_t num);
 
 /**
  * @ingroup string
@@ -111,7 +111,7 @@ char *strcpyn(char *dest, const char *src, size_t num);
  *
  * @return The length of the initial portion of str1 containing only characters that appear in accept. size_t is an unsigned integral type.
  */
-size_t strspn(const char *str, char *accept);
+size_t strspn(const char* str, char* accept);
 
 /**
  * @ingroup string
@@ -123,7 +123,7 @@ size_t strspn(const char *str, char *accept);
  *
  * @return The length of the initial part of str not containing any of the characters that are part of not_accept.
  */
-size_t strcspn(const char *str, char *not_accept);
+size_t strcspn(const char* str, char* not_accept);
 
 /**
  * @ingroup string
@@ -135,7 +135,7 @@ size_t strcspn(const char *str, char *not_accept);
  *
  * @return A pointer to the first occurrence of character in str.
  */
-char *strch(char *str, char ch);
+char* strch(char* str, char ch);
 
 /**
  * @ingroup string
@@ -149,4 +149,4 @@ char *strch(char *str, char ch);
  */
 char* strext(char* buf, const char* str, char sym);
 
-#endif //STRING_H
+#endif // STRING_H
