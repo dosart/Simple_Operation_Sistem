@@ -11,11 +11,11 @@ void gdt_init()
     gdt_ptr.limit = (sizeof(gdt_entry_t) * 5) - 1;
     gdt_ptr.base = (uint32_t)&gdt;
 
-    gdt_set_gate(0, 0, 0, 0, 0);
-    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
-    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
-    gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF);
-    gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
+    gdt_set_gate(0, 0, 0, 0, 0);                ///< Null descriptor
+    gdt_set_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); ///< Kernel code descriptor (ring 0)
+    gdt_set_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); ///< Kernel data descriptor (ring 0)
+    gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); ///< User mode code descriptor (ring 3)
+    gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); ///< User mode data descriptor (ring 3)
 
     asm_gdt_load((uint32_t)&gdt_ptr);
 }
