@@ -16,12 +16,12 @@
  */
 typedef struct gdt_entry_struct
 {
-    uint16_t limit_low;
-    uint16_t base_low;
-    uint8_t base_middle;
-    uint8_t access;
-    uint8_t granularity;
-    uint8_t base_high;
+    uint16_t limit_low;  ///< Low limit word
+    uint16_t base_low;   ///< Low base word
+    uint8_t base_middle; ///< Middle part of the base
+    uint8_t access;      ///< Access Byte
+    uint8_t granularity; ///< Byte granularity
+    uint8_t base_high;   ///< The older part of the base
 
 } __attribute__((packed)) gdt_entry_t;
 
