@@ -119,3 +119,68 @@ char* strext(char* buf, const char* str, char sym)
 
     return buf;
 }
+
+char* itoa(uint32_t value, char* str, uint32_t base)
+{
+    char* original = str;
+    char digit;
+
+    do
+    {
+        digit = value % base;
+        value = value / base;
+        if(digit < 10)
+        {
+            *str++ = digit | 0x30; /* number */
+        }
+        else if(digit < 16)
+        {
+            *str++ = ((digit - 10) | 0x40) + 1; /* alpha */
+        }
+        else
+        {
+            *str++ = '?';
+        }
+    } while(value > 0);
+
+    if(base == 16)
+    {
+        /* hexedecimal integer */
+        *str++ = 'x';
+        *str++ = '0';
+    }
+    else if(base == 8)
+    {
+        /* octal integer */
+        *str++ = 'o';
+        *str++ = '0';
+    }
+    else if(base == 2)
+    {
+        /* binary integer */
+        *str++ = 'b';
+        *str++ = '0';
+    }
+    *str++ = '\0';
+
+    strinv(original);
+
+    return str;
+}
+
+char* strinv(char* str)
+{
+    uint32_t n = strlen(str);
+    char buf[n + 2];
+    char* cur = buf;
+
+    for(uint32_t i = n - 1; i >= 0; --i)
+    {
+        *cur++ = str[i];
+    }
+    *cur++ = '\0';
+
+    strcpy(str, buf);
+
+    return str;
+}

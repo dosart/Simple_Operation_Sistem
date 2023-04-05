@@ -140,13 +140,35 @@ char* strch(char* str, char ch);
 /**
  * @ingroup string
  *
- * @brief extract a portion of a string.
+ * @brief Extract a portion of a string.
  *
- * @param str The string from which to extract..
+ * @param str The string from which to extract.
  * @param ch  The byte position at which to begin extracting.
  *
  * @return The byte position at which to end extracting. The end position is included in the extraction.
  */
 char* strext(char* buf, const char* str, char sym);
+
+/**
+ * @ingroup string
+ *
+ * @brief Converts an integer value to a null-terminated string using the specified base and stores the result in the array given by str parameter.
+ *
+ * @param value Value to be converted to a string.
+ * @param str  Array in memory where to store the resulting null-terminated string.
+ * @param base  Numerical base used to represent the value as a string, between 2 and 36, where 10 means decimal base, 16 hexadecimal, 8 octal, and 2 binary.
+ *
+ * @return A pointer to the resulting null-terminated string, same as parameter str.
+ */
+char* itoa(uint32_t value, char* str, uint32_t base);
+
+/**
+ * @ingroup string
+ *
+ * @brief Inverts the inputted string.
+ *
+ * @param str String for inverts.
+ */
+char* strinv(char* str);
 
 #endif // STRING_H
