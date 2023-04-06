@@ -184,3 +184,63 @@ char* strinv(char* str)
 
     return str;
 }
+
+uint32_t vsprintf(char* s1, const char* s2, va_list list)
+{
+    return vsnprintf(s1, 4 * 1024, s2, list);
+}
+
+uint32_t vsnprintf(char* s1, uint32_t n, const char* s2, va_list list)
+{
+    uint32_t j = 0;
+    size_t count = 0;
+    char number[32];
+    char* cur = s1;
+    char* str;
+
+    while(s2[j] != '\0' && j < n)
+    {
+        if(s2[j] != '%')
+        {
+            /* text */
+            *cur++ = s2[j++];
+        }
+        else if(s2[j] == '%')
+        {
+            /* control character */
+            switch(s2[++j])
+            {
+            case 'c':
+                /* character */
+                *cur++ = va_arg(list, char);
+                break;
+            case 'u':
+                /* unsigned decimal */
+                itoa(va_arg(list, uint32_t), number, 10);
+                strcpy(cur, number);
+                cur += strlen(number);
+                break;
+            case 'X':
+                /* unsigned hexedecimal */
+                itoa(va_arg(list, uint32_t), number, 16);
+                strcpy(cur, number);
+                cur += strlen(number);
+                break;
+            case 's':
+                /* string */
+                str = va_arg(list, char*);
+                strcpy(cur, str);
+                cur += strlen(str);
+                break;
+            }
+            j += 1;
+        }
+    }
+
+    count = ((size_t)cur - (size_t)s1);
+    *cur++ = '\0';
+
+    va_end(list);
+
+    return count;
+}

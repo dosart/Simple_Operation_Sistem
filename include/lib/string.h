@@ -1,12 +1,13 @@
 /*!
 @file
-@defgroup stdstring
+@defgroup string
 @brief  Header file for string
 This file contains functions implementation from libs (string.h)
 */
 #ifndef STRING_H
 #define STRING_H
 
+#include "common.h"
 #include "lib/stdint.h"
 
 #define NULL 0
@@ -170,5 +171,19 @@ char* itoa(uint32_t value, char* str, uint32_t base);
  * @param str String for inverts.
  */
 char* strinv(char* str);
+
+/**
+ * @ingroup string
+ *
+ * @brief Print to string.
+ */
+uint32_t vsprintf(char* s1, const char* s2, va_list list);
+
+/**
+ * @ingroup string
+ *
+ * @brief Print to limited string.
+ */
+uint32_t vsnprintf(char* s1, uint32_t n, const char* s2, va_list list);
 
 #endif // STRING_H
