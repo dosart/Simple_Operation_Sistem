@@ -11,11 +11,11 @@ void timer_init(uint32_t frequency)
     asm_write_port(0x40, high);
 }
 
-uint32_t tick = 0;
+static uint32_t tick = 0;
 
-uint8_t hour = 0;
-uint8_t min = 0;
-uint8_t sec = 0;
+static uint8_t hour = 0;
+static uint8_t min = 0;
+static uint8_t sec = 0;
 
 void timer_handler()
 {
