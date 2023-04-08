@@ -14,5 +14,5 @@ void keyboard_handler()
     }
 
 end:
-    asm_write_port(PIC1_CMD_PORT, 0x20); /* end of interrupt */
+    asm_write_port(PIC1_CMD_PORT, 0x20); ///< End of interrupt
 }
