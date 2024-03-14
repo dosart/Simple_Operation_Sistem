@@ -3,8 +3,6 @@
 This is not a REAL operation system. It's just a simple operation system created in educational purposes.
 The main goal I'm following is to learn how OS is working from the ground up. Starting from the own boot sector, hardware and software interrupts, own drivers.
 
-Simple bootloader with support Multiboot.
-
 ## Roadmap
 * Boot secto
   * Reads the kernel from disk into memory (DONE)
