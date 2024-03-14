@@ -11,8 +11,6 @@ Simple bootloader with support Multiboot.
   * Reads the kernel from disk into memory (DONE)
   * Describes Global Descriptor Table (DONE)
   * Switches to 32-bit Protected Mode (DONE)
-  * Checks if CPU support 64-bit Long Mode and switches into (DONE)
-  * In case, if 64-bit Long Mode isn't supported, fallback into 32-bit (DONE)
   * Gives execution to kernel (DONE)
   
 * Kernel
